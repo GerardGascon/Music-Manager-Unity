@@ -6,9 +6,11 @@ namespace Sound.Domain.Channels {
 			AudioTrack = initialTrack;
 		}
 
-		public void Play() { }
-		public void Stop() { }
-		public void Pause() { }
-		public void Unpause() { }
+		public void Play() => AudioTrack.Play();
+		public void Stop() => AudioTrack.Stop();
+		public void Pause() => AudioTrack.Pause();
+		public void Unpause() => AudioTrack.Unpause();
+
+		public void SwitchSong(IAudioTrack newTrack) => AudioTrack = newTrack;
 	}
 }
