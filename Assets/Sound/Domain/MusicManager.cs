@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Sound.Domain {
 	public class MusicManager {
 		public IMusicChannel CurrentlyPlayingChannel { private set; get; }
-		public readonly Stack<IMusicChannel> ActiveChannels = new();
+		public readonly List<IMusicChannel> ActiveChannels = new();
 
 		public void AddChannel(IMusicChannel musicChannel) {
 			if (ActiveChannels.Contains(musicChannel))
@@ -12,30 +12,33 @@ namespace Sound.Domain {
 
 			CurrentlyPlayingChannel?.Pause();
 
-			ActiveChannels.Push(musicChannel);
-			CurrentlyPlayingChannel = ActiveChannels.Peek();
+			ActiveChannels.Add(musicChannel);
+			CurrentlyPlayingChannel = ActiveChannels[^1];
 
 			musicChannel.Play();
 		}
 
 		public void RemoveLast() {
-			IMusicChannel channel = ActiveChannels.Pop();
+			IMusicChannel channel = CurrentlyPlayingChannel;
+			ActiveChannels.RemoveAt(ActiveChannels.Count - 1);
 			channel.Stop();
 
-			CurrentlyPlayingChannel = ActiveChannels.Count > 0 ? ActiveChannels.Peek() : null;
+			CurrentlyPlayingChannel = ActiveChannels.Count > 0 ? ActiveChannels[^1] : null;
 
 			CurrentlyPlayingChannel?.Unpause();
 		}
 
 		public void StopChannel(IMusicChannel musicChannel) {
-			
+
 		}
 
 		public void StopAllChannels() {
 			CurrentlyPlayingChannel = null;
 
-			while (ActiveChannels.TryPop(out IMusicChannel player))
-				player.Stop();
+			while (ActiveChannels.Count > 0) {
+				ActiveChannels[0].Stop();
+				ActiveChannels.RemoveAt(0);
+			}
 		}
 	}
 }
