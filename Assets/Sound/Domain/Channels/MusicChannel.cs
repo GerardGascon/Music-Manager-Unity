@@ -11,6 +11,10 @@ namespace Sound.Domain.Channels {
 		public void Pause() => AudioTrack.Pause();
 		public void Unpause() => AudioTrack.Unpause();
 
-		public void SwitchSong(IAudioTrack newTrack) => AudioTrack = newTrack;
+		public void SwitchSong(IAudioTrack newTrack) {
+			AudioTrack.Stop();
+
+			AudioTrack = newTrack;
+		}
 	}
 }
