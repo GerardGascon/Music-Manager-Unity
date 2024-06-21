@@ -92,5 +92,18 @@ namespace Sound.Tests {
 
 			Assert.AreEqual(0, sut.ActiveChannels.Count);
 		}
+
+		[Test]
+		public void StopSpecific_RemovesThatOne() {
+			MusicChannelMock mock1 = new("potato");
+			MusicChannelMock mock2 = new("potato");
+			MusicManager sut = new();
+
+			sut.AddChannel(mock1);
+			sut.AddChannel(mock2);
+			sut.StopChannel(mock1);
+
+			Assert.IsFalse(sut.ActiveChannels.Contains(mock1));
+		}
 	}
 }

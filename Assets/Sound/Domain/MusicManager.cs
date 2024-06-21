@@ -27,6 +27,10 @@ namespace Sound.Domain {
 			CurrentlyPlayingChannel?.Unpause();
 		}
 
+		public void StopChannel(IMusicChannel musicChannel) {
+			
+		}
+
 		public void StopAllChannels() {
 			CurrentlyPlayingChannel = null;
 
