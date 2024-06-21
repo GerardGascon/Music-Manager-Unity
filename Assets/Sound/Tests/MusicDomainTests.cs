@@ -83,7 +83,7 @@ namespace Sound.Tests {
 		[Test]
 		public void StopAll_RemovesAllPlayers() {
 			MusicChannelMock mock1 = new("potato");
-			MusicChannelMock mock2 = new("potato");
+			MusicChannelMock mock2 = new("tomato");
 			MusicManager sut = new();
 
 			sut.AddChannel(mock1);
@@ -96,7 +96,7 @@ namespace Sound.Tests {
 		[Test]
 		public void StopSpecific_RemovesThatOne() {
 			MusicChannelMock mock1 = new("potato");
-			MusicChannelMock mock2 = new("potato");
+			MusicChannelMock mock2 = new("tomato");
 			MusicManager sut = new();
 
 			sut.AddChannel(mock1);
@@ -104,6 +104,19 @@ namespace Sound.Tests {
 			sut.StopChannel(mock1);
 
 			Assert.IsFalse(sut.ActiveChannels.Contains(mock1));
+		}
+
+		[Test]
+		public void StopSpecificLast_UpdatesActiveChannel() {
+			MusicChannelMock mock1 = new("potato");
+			MusicChannelMock mock2 = new("tomato");
+			MusicManager sut = new();
+
+			sut.AddChannel(mock1);
+			sut.AddChannel(mock2);
+			sut.StopChannel(mock2);
+
+			Assert.AreNotEqual(mock2, sut.CurrentlyPlayingChannel);
 		}
 	}
 }

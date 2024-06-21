@@ -30,6 +30,7 @@ namespace Sound.Domain {
 
 		public void StopChannel(IMusicChannel musicChannel) {
 			ActiveChannels.Remove(musicChannel);
+			CurrentlyPlayingChannel = ActiveChannels.Count > 0 ? ActiveChannels[^1] : null;
 		}
 
 		public void StopAllChannels() {
