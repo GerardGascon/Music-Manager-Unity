@@ -29,7 +29,7 @@ namespace Sound.Domain {
 		}
 
 		public void StopChannel(IMusicChannel musicChannel) {
-
+			ActiveChannels.Remove(musicChannel);
 		}
 
 		public void StopAllChannels() {
