@@ -13,6 +13,7 @@ namespace Sound.Domain.Channels {
 
 		public void SwitchSong(IAudioTrack newTrack) {
 			AudioTrack.Stop();
+			newTrack.Play();
 
 			AudioTrack = newTrack;
 		}
