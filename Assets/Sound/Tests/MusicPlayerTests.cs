@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Sound.Domain;
+using Sound.Domain.Manager;
 
 namespace Sound.Tests {
 	public class MusicPlayerTests {

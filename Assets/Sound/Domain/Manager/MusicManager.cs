@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Sound.Domain.Channels;
 
-namespace Sound.Domain {
+namespace Sound.Domain.Manager {
 	public class MusicManager {
 		public IMusicChannel CurrentlyPlayingChannel { private set; get; }
 		public readonly List<IMusicChannel> ActiveChannels = new();

@@ -1,4 +1,4 @@
-namespace Sound.Domain {
+namespace Sound.Domain.Channels {
 	public interface IMusicChannel {
 		void Play();
 		void Stop();

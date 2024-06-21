@@ -1,4 +1,5 @@
 using Sound.Domain;
+using Sound.Domain.Channels;
 
 namespace Sound.Tests {
 	public class MusicChannelMock : IMusicChannel {
