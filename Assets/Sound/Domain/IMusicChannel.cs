@@ -1,5 +1,5 @@
 namespace Sound.Domain {
-	public interface IMusicPlayer {
+	public interface IMusicChannel {
 		void Play();
 		void Stop();
 		void Pause();

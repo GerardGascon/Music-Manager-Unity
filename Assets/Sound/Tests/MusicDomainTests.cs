@@ -8,89 +8,89 @@ namespace Sound.Tests {
 		public void DontPlay_NoSong() {
 			MusicManager sut = new();
 
-			Assert.IsNull(sut.CurrentlyPlayingMusic);
+			Assert.IsNull(sut.CurrentlyPlayingChannel);
 		}
 
 		[Test]
 		public void PlayNewSong_AddsToCurrentlyPlaying() {
-			MusicPlayerMock mock = new("potato");
+			MusicChannelMock mock = new("potato");
 			MusicManager sut = new();
 
-			sut.Play(mock);
+			sut.AddChannel(mock);
 
-			Assert.AreEqual(mock, sut.CurrentlyPlayingMusic);
+			Assert.AreEqual(mock, sut.CurrentlyPlayingChannel);
 		}
 
 		[Test]
 		public void PlayNewSong_ReplacesPrevious() {
-			MusicPlayerMock mock1 = new("potato");
-			MusicPlayerMock mock2 = new("tomato");
+			MusicChannelMock mock1 = new("potato");
+			MusicChannelMock mock2 = new("tomato");
 			MusicManager sut = new();
 
-			sut.Play(mock1);
-			sut.Play(mock2);
+			sut.AddChannel(mock1);
+			sut.AddChannel(mock2);
 
-			Assert.AreEqual(mock2, sut.CurrentlyPlayingMusic);
+			Assert.AreEqual(mock2, sut.CurrentlyPlayingChannel);
 		}
 
 		[Test]
 		public void PlaySameSong_ReceiveException() {
-			MusicPlayerMock mock1 = new("potato");
-			MusicPlayerMock mock2 = new("tomato");
+			MusicChannelMock mock1 = new("potato");
+			MusicChannelMock mock2 = new("tomato");
 			MusicManager sut = new();
 
-			sut.Play(mock1);
-			sut.Play(mock2);
+			sut.AddChannel(mock1);
+			sut.AddChannel(mock2);
 
-			Assert.Throws<InvalidOperationException>(() => sut.Play(mock1));
+			Assert.Throws<InvalidOperationException>(() => sut.AddChannel(mock1));
 		}
 
 		[Test]
 		public void StopOnlySong_NoSong() {
-			MusicPlayerMock mock1 = new("potato");
+			MusicChannelMock mock1 = new("potato");
 			MusicManager sut = new();
 
-			sut.Play(mock1);
-			sut.Stop();
+			sut.AddChannel(mock1);
+			sut.RemoveLast();
 
-			Assert.IsNull(sut.CurrentlyPlayingMusic);
+			Assert.IsNull(sut.CurrentlyPlayingChannel);
 		}
 
 		[Test]
 		public void StopSong_PreviousPlays() {
-			MusicPlayerMock mock1 = new("potato");
-			MusicPlayerMock mock2 = new("tomato");
+			MusicChannelMock mock1 = new("potato");
+			MusicChannelMock mock2 = new("tomato");
 			MusicManager sut = new();
 
-			sut.Play(mock1);
-			sut.Play(mock2);
-			sut.Stop();
+			sut.AddChannel(mock1);
+			sut.AddChannel(mock2);
+			sut.RemoveLast();
 
-			Assert.AreEqual(mock1, sut.CurrentlyPlayingMusic);
+			Assert.AreEqual(mock1, sut.CurrentlyPlayingChannel);
 		}
 
 		[Test]
 		public void StopAll_RemovesCurrentPlayer() {
-			MusicPlayerMock mock = new("potato");
+			MusicChannelMock mock = new("potato");
 			MusicManager sut = new();
 
-			sut.Play(mock);
-			sut.StopAll();
+			sut.AddChannel(mock);
+			sut.StopAllChannels();
 
-			Assert.IsNull(sut.CurrentlyPlayingMusic);
+			Assert.IsNull(sut.CurrentlyPlayingChannel);
 		}
 
 		[Test]
 		public void StopAll_RemovesAllPlayers() {
-			MusicPlayerMock mock1 = new("potato");
-			MusicPlayerMock mock2 = new("potato");
+			MusicChannelMock mock1 = new("potato");
+			MusicChannelMock mock2 = new("potato");
 			MusicManager sut = new();
 
-			sut.Play(mock1);
-			sut.Play(mock2);
-			sut.StopAll();
+			sut.AddChannel(mock1);
+			sut.AddChannel(mock2);
+			sut.StopAllChannels();
 
-			Assert.AreEqual(0, sut.ActiveMusic.Count);
+			Assert.AreEqual(0, sut.ActiveChannels.Count);
 		}
 	}
 }

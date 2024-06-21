@@ -1,7 +1,7 @@
 using Sound.Domain;
 
 namespace Sound.Tests {
-	public class MusicPlayerMock : IMusicPlayer {
+	public class MusicChannelMock : IMusicChannel {
 		private readonly string _name;
 
 		public bool PlayCallbackReceived;
@@ -9,7 +9,7 @@ namespace Sound.Tests {
 		public bool PauseCallbackReceived;
 		public bool UnpauseCallbackReceived;
 
-		public MusicPlayerMock(string name) {
+		public MusicChannelMock(string name) {
 			_name = name;
 		}
 

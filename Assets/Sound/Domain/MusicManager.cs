@@ -3,34 +3,34 @@ using System.Collections.Generic;
 
 namespace Sound.Domain {
 	public class MusicManager {
-		public IMusicPlayer CurrentlyPlayingMusic { private set; get; }
-		public readonly Stack<IMusicPlayer> ActiveMusic = new();
+		public IMusicChannel CurrentlyPlayingChannel { private set; get; }
+		public readonly Stack<IMusicChannel> ActiveChannels = new();
 
-		public void Play(IMusicPlayer musicPlayer) {
-			if (ActiveMusic.Contains(musicPlayer))
+		public void AddChannel(IMusicChannel musicChannel) {
+			if (ActiveChannels.Contains(musicChannel))
 				throw new InvalidOperationException("This music player is already in the stack.");
 
-			CurrentlyPlayingMusic?.Pause();
+			CurrentlyPlayingChannel?.Pause();
 
-			ActiveMusic.Push(musicPlayer);
-			CurrentlyPlayingMusic = ActiveMusic.Peek();
+			ActiveChannels.Push(musicChannel);
+			CurrentlyPlayingChannel = ActiveChannels.Peek();
 
-			musicPlayer.Play();
+			musicChannel.Play();
 		}
 
-		public void Stop() {
-			IMusicPlayer player = ActiveMusic.Pop();
-			player.Stop();
+		public void RemoveLast() {
+			IMusicChannel channel = ActiveChannels.Pop();
+			channel.Stop();
 
-			CurrentlyPlayingMusic = ActiveMusic.Count > 0 ? ActiveMusic.Peek() : null;
+			CurrentlyPlayingChannel = ActiveChannels.Count > 0 ? ActiveChannels.Peek() : null;
 
-			CurrentlyPlayingMusic?.Unpause();
+			CurrentlyPlayingChannel?.Unpause();
 		}
 
-		public void StopAll() {
-			CurrentlyPlayingMusic = null;
+		public void StopAllChannels() {
+			CurrentlyPlayingChannel = null;
 
-			while (ActiveMusic.TryPop(out IMusicPlayer player))
+			while (ActiveChannels.TryPop(out IMusicChannel player))
 				player.Stop();
 		}
 	}

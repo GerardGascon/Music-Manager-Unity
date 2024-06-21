@@ -5,7 +5,7 @@ namespace Sound.Tests {
 	public class MusicPlayerTests {
 		[Test]
 		public void DontPlayNewSong_NoPlayCallback() {
-			MusicPlayerMock sut = new("potato");
+			MusicChannelMock sut = new("potato");
 
 			Assert.IsFalse(sut.PlayCallbackReceived);
 		}
@@ -13,9 +13,9 @@ namespace Sound.Tests {
 		[Test]
 		public void PlayNewSong_ReceivePlayCallback() {
 			MusicManager manager = new();
-			MusicPlayerMock sut = new("potato");
+			MusicChannelMock sut = new("potato");
 
-			manager.Play(sut);
+			manager.AddChannel(sut);
 
 			Assert.IsTrue(sut.PlayCallbackReceived);
 		}
@@ -23,9 +23,9 @@ namespace Sound.Tests {
 		[Test]
 		public void DontStopSong_NoStopCallback() {
 			MusicManager manager = new();
-			MusicPlayerMock sut = new("potato");
+			MusicChannelMock sut = new("potato");
 
-			manager.Play(sut);
+			manager.AddChannel(sut);
 
 			Assert.IsFalse(sut.StopCallbackReceived);
 		}
@@ -33,10 +33,10 @@ namespace Sound.Tests {
 		[Test]
 		public void StopSong_ReceiveStopCallback() {
 			MusicManager manager = new();
-			MusicPlayerMock sut = new("potato");
+			MusicChannelMock sut = new("potato");
 
-			manager.Play(sut);
-			manager.Stop();
+			manager.AddChannel(sut);
+			manager.RemoveLast();
 
 			Assert.IsTrue(sut.StopCallbackReceived);
 		}
@@ -44,9 +44,9 @@ namespace Sound.Tests {
 		[Test]
 		public void DontPlayNewSong_DontPausePrevious() {
 			MusicManager manager = new();
-			MusicPlayerMock sut = new("potato");
+			MusicChannelMock sut = new("potato");
 
-			manager.Play(sut);
+			manager.AddChannel(sut);
 
 			Assert.IsFalse(sut.PauseCallbackReceived);
 		}
@@ -54,11 +54,11 @@ namespace Sound.Tests {
 		[Test]
 		public void PlayNewSong_PausePrevious() {
 			MusicManager manager = new();
-			MusicPlayerMock sut = new("potato");
-			MusicPlayerMock mock = new("tomato");
+			MusicChannelMock sut = new("potato");
+			MusicChannelMock mock = new("tomato");
 
-			manager.Play(sut);
-			manager.Play(mock);
+			manager.AddChannel(sut);
+			manager.AddChannel(mock);
 
 			Assert.IsTrue(sut.PauseCallbackReceived);
 		}
@@ -66,12 +66,12 @@ namespace Sound.Tests {
 		[Test]
 		public void StopSong_UnpausePrevious() {
 			MusicManager manager = new();
-			MusicPlayerMock sut = new("potato");
-			MusicPlayerMock mock = new("tomato");
+			MusicChannelMock sut = new("potato");
+			MusicChannelMock mock = new("tomato");
 
-			manager.Play(sut);
-			manager.Play(mock);
-			manager.Stop();
+			manager.AddChannel(sut);
+			manager.AddChannel(mock);
+			manager.RemoveLast();
 
 			Assert.IsTrue(sut.UnpauseCallbackReceived);
 		}
@@ -79,12 +79,12 @@ namespace Sound.Tests {
 		[Test]
 		public void StopAll_StopCallbackReceived() {
 			MusicManager manager = new();
-			MusicPlayerMock sut1 = new("potato");
-			MusicPlayerMock sut2 = new("tomato");
+			MusicChannelMock sut1 = new("potato");
+			MusicChannelMock sut2 = new("tomato");
 
-			manager.Play(sut1);
-			manager.Play(sut2);
-			manager.StopAll();
+			manager.AddChannel(sut1);
+			manager.AddChannel(sut2);
+			manager.StopAllChannels();
 
 			Assert.IsTrue(sut1.StopCallbackReceived);
 			Assert.IsTrue(sut2.StopCallbackReceived);
