@@ -1,0 +1,16 @@
+{
+    "name": "Sound.View",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a65b14d017915454a9d4ea64484c1915"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
