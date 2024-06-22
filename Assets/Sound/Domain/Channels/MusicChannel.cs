@@ -2,18 +2,15 @@ using System.Collections.Generic;
 
 namespace Sound.Domain.Channels {
 	public class MusicChannel : IMusicChannel {
-		public IAudioTrack AudioTrack { private set; get; }
-
 		public readonly Stack<IAudioTrack> ActiveTracks = new();
+		public IAudioTrack AudioTrack => ActiveTracks.TryPeek(out IAudioTrack track) ? track : null;
 
 		public MusicChannel(IAudioTrack initialTrack) {
-			AudioTrack = initialTrack;
 			ActiveTracks.Push(initialTrack);
 		}
 
 		public void Play() => AudioTrack.Play();
 		public void Stop() {
-			AudioTrack = null;
 			while (ActiveTracks.TryPop(out IAudioTrack track)) {
 				track.Stop();
 			}
@@ -28,18 +25,15 @@ namespace Sound.Domain.Channels {
 
 			ActiveTracks.Pop();
 			ActiveTracks.Push(newTrack);
-			AudioTrack = newTrack;
 		}
 
 		public void PlayNew(IAudioTrack newTrack) {
 			AudioTrack.Pause();
-			AudioTrack = newTrack;
 			ActiveTracks.Push(newTrack);
 		}
 
 		public void StopCurrent() {
 			ActiveTracks.Pop();
-			AudioTrack = ActiveTracks.Peek();
 			AudioTrack.Unpause();
 		}
 	}
