@@ -82,5 +82,15 @@ namespace Sound.Tests {
 			Assert.IsTrue(mock1.StopCallbackReceived);
 			Assert.IsTrue(mock2.StopCallbackReceived);
 		}
+
+		[Test]
+		public void StopChannel_ClearsActiveTrack() {
+			AudioTrackMock mock1 = new("potato");
+			MusicChannel sut = new(mock1);
+
+			sut.Stop();
+
+			Assert.IsNull(sut.AudioTrack);
+		}
 	}
 }
