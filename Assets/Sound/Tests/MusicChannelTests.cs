@@ -37,9 +37,20 @@ namespace Sound.Tests {
 		}
 
 		[Test]
+		public void PlayNewSong_ChangesCurrentTrack() {
+			AudioTrackMock mock1 = new("potato");
+			AudioTrackMock mock2 = new("tomato");
+			MusicChannel sut = new(mock1);
+
+			sut.PlayNew(mock2);
+
+			Assert.AreEqual(mock2, sut.AudioTrack);
+		}
+
+		[Test]
 		public void PlayNewSong_PausePrevious() {
 			AudioTrackMock mock1 = new("potato");
-			AudioTrackMock mock2 = new("potato");
+			AudioTrackMock mock2 = new("tomato");
 			MusicChannel sut = new(mock1);
 
 			sut.PlayNew(mock2);
