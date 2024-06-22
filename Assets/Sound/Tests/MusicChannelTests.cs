@@ -37,6 +37,28 @@ namespace Sound.Tests {
 		}
 
 		[Test]
+		public void SwitchSong_SwitchesActiveTrackInStack() {
+			AudioTrackMock mock1 = new("potato");
+			AudioTrackMock mock2 = new("tomato");
+			MusicChannel sut = new(mock1);
+
+			sut.SwitchSong(mock2);
+
+			Assert.AreEqual(mock2, sut.ActiveTracks.Peek());
+		}
+
+		[Test]
+		public void SwitchSong_RemovesPreviousTrackFromStack() {
+			AudioTrackMock mock1 = new("potato");
+			AudioTrackMock mock2 = new("tomato");
+			MusicChannel sut = new(mock1);
+
+			sut.SwitchSong(mock2);
+
+			Assert.IsFalse(sut.ActiveTracks.Contains(mock1));
+		}
+
+		[Test]
 		public void PlayNewSong_ChangesCurrentTrack() {
 			AudioTrackMock mock1 = new("potato");
 			AudioTrackMock mock2 = new("tomato");
