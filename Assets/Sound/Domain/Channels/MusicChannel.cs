@@ -17,5 +17,9 @@ namespace Sound.Domain.Channels {
 
 			AudioTrack = newTrack;
 		}
+
+		public void PlayNew(IAudioTrack newTrack) {
+			AudioTrack.Pause();
+		}
 	}
 }

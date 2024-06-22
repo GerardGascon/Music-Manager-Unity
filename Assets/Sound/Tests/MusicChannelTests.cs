@@ -35,5 +35,16 @@ namespace Sound.Tests {
 
 			Assert.IsTrue(mock2.PlayCallbackReceived);
 		}
+
+		[Test]
+		public void PlayNewSong_PausePrevious() {
+			AudioTrackMock mock1 = new("potato");
+			AudioTrackMock mock2 = new("potato");
+			MusicChannel sut = new(mock1);
+
+			sut.PlayNew(mock2);
+
+			Assert.IsTrue(mock1.PauseCallbackReceived);
+		}
 	}
 }
