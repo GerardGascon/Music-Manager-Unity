@@ -12,7 +12,12 @@ namespace Sound.Domain.Channels {
 		}
 
 		public void Play() => AudioTrack.Play();
-		public void Stop() => AudioTrack.Stop();
+		public void Stop() {
+			while (_activeTracks.TryPop(out IAudioTrack track)) {
+				track.Stop();
+			}
+		}
+
 		public void Pause() => AudioTrack.Pause();
 		public void Unpause() => AudioTrack.Unpause();
 
