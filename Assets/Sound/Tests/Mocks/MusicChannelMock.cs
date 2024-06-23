@@ -13,19 +13,19 @@ namespace Sound.Tests.Mocks {
 			_name = name;
 		}
 
-		public void Play() {
+		public void Play(float fadeDuration, float fadeDelay) {
 			PlayCallbackReceived = true;
 		}
 
-		public void Stop() {
+		public void Stop(float fadeDuration, float fadeDelay) {
 			StopCallbackReceived = true;
 		}
 
-		public void Pause() {
+		public void Pause(float fadeDuration, float fadeDelay) {
 			PauseCallbackReceived = true;
 		}
 
-		public void Unpause() {
+		public void Unpause(float fadeDuration, float fadeDelay) {
 			UnpauseCallbackReceived = true;
 		}
 

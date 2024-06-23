@@ -57,19 +57,19 @@ namespace Sound.View {
 		}
 
 		private void Stop() {
-			_manager.CurrentlyPlayingChannel.Stop();
+			_manager.CurrentlyPlayingChannel.Stop(0, 0);
 		}
 
 		private void Pause() {
-			_manager.CurrentlyPlayingChannel.Pause();
+			_manager.CurrentlyPlayingChannel.Pause(0, 0);
 		}
 
 		private void Unpause() {
-			_manager.CurrentlyPlayingChannel.Unpause();
+			_manager.CurrentlyPlayingChannel.Unpause(0, 0);
 		}
 
 		private void Play() {
-			_manager.CurrentlyPlayingChannel.Play();
+			_manager.CurrentlyPlayingChannel.Play(0, 0);
 		}
 	}
 }

@@ -9,32 +9,32 @@ namespace Sound.Domain.Channels {
 			ActiveTracks.Push(initialTrack);
 		}
 
-		public void Play() => AudioTrack.Play();
-		public void Stop() {
+		public void Play(float fadeDuration = 0f, float fadeDelay = 0f) => AudioTrack.Play(fadeDuration, fadeDelay);
+		public void Stop(float fadeDuration = 0f, float fadeDelay = 0f) {
 			while (ActiveTracks.TryPop(out IAudioTrack track)) {
-				track.Stop();
+				track.Stop(fadeDuration, fadeDelay);
 			}
 		}
 
-		public void Pause() => AudioTrack.Pause();
-		public void Unpause() => AudioTrack.Unpause();
+		public void Pause(float fadeDuration = 0f, float fadeDelay = 0f) => AudioTrack.Pause(fadeDuration, fadeDelay);
+		public void Unpause(float fadeDuration = 0f, float fadeDelay = 0f) => AudioTrack.Unpause(fadeDuration, fadeDelay);
 
-		public void SwitchSong(IAudioTrack newTrack) {
-			AudioTrack.Stop();
-			newTrack.Play();
+		public void SwitchSong(IAudioTrack newTrack, float fadeDuration = 0f, float fadeDelay = 0f) {
+			AudioTrack.Stop(fadeDuration, fadeDelay);
+			newTrack.Play(fadeDuration, fadeDelay);
 
 			ActiveTracks.Pop();
 			ActiveTracks.Push(newTrack);
 		}
 
-		public void PlayNew(IAudioTrack newTrack) {
-			AudioTrack.Pause();
+		public void PlayNew(IAudioTrack newTrack, float fadeDuration = 0f, float fadeDelay = 0f) {
+			AudioTrack.Pause(fadeDuration, fadeDelay);
 			ActiveTracks.Push(newTrack);
 		}
 
-		public void StopCurrent() {
+		public void StopCurrent(float fadeDuration = 0f, float fadeDelay = 0f) {
 			ActiveTracks.Pop();
-			AudioTrack.Unpause();
+			AudioTrack.Unpause(fadeDuration, fadeDelay);
 		}
 	}
 }
