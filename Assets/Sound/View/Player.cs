@@ -49,7 +49,7 @@ namespace Sound.View {
 		}
 
 		private void RemoveChannel() {
-			_manager.RemoveLast();
+			_manager.StopChannel(_manager.CurrentlyPlayingChannel);
 		}
 
 		private void AddChannel() {

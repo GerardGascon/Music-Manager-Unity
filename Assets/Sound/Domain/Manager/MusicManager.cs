@@ -4,7 +4,7 @@ using Sound.Domain.Channels;
 
 namespace Sound.Domain.Manager {
 	public class MusicManager {
-		public readonly List<IMusicChannel> ActiveChannels = new();
+		internal readonly List<IMusicChannel> ActiveChannels = new();
 		public IMusicChannel CurrentlyPlayingChannel => ActiveChannels.Count > 0 ? ActiveChannels[^1] : null;
 
 		public void AddChannel(IMusicChannel musicChannel) {
@@ -16,10 +16,6 @@ namespace Sound.Domain.Manager {
 			ActiveChannels.Add(musicChannel);
 
 			musicChannel.Play();
-		}
-
-		public void RemoveLast() {
-			StopChannel(ActiveChannels[^1]);
 		}
 
 		public void StopChannel(IMusicChannel musicChannel) {

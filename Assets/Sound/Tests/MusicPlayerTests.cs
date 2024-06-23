@@ -37,7 +37,7 @@ namespace Sound.Tests {
 			MusicChannelMock sut = new("potato");
 
 			manager.AddChannel(sut);
-			manager.RemoveLast();
+			manager.StopChannel(sut);
 
 			Assert.IsTrue(sut.StopCallbackReceived);
 		}
@@ -65,14 +65,14 @@ namespace Sound.Tests {
 		}
 
 		[Test]
-		public void StopSong_UnpausePrevious() {
+		public void StopLastSong_UnpausePrevious() {
 			MusicManager manager = new();
 			MusicChannelMock sut = new("potato");
 			MusicChannelMock mock = new("tomato");
 
 			manager.AddChannel(sut);
 			manager.AddChannel(mock);
-			manager.RemoveLast();
+			manager.StopChannel(mock);
 
 			Assert.IsTrue(sut.UnpauseCallbackReceived);
 		}

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Sound.Domain.Channels {
 	public class MusicChannel : IMusicChannel {
-		public readonly Stack<IAudioTrack> ActiveTracks = new();
+		internal readonly Stack<IAudioTrack> ActiveTracks = new();
 		public IAudioTrack AudioTrack => ActiveTracks.TryPeek(out IAudioTrack track) ? track : null;
 
 		public MusicChannel(IAudioTrack initialTrack) {
