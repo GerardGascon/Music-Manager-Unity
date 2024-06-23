@@ -23,10 +23,13 @@ namespace Sound.Domain.Manager {
 		}
 
 		public void StopChannel(IMusicChannel musicChannel) {
+			bool isLast = musicChannel == ActiveChannels[^1];
+
 			ActiveChannels.Remove(musicChannel);
 			musicChannel.Stop();
 
-			CurrentlyPlayingChannel?.Unpause();
+			if(isLast)
+				CurrentlyPlayingChannel?.Unpause();
 		}
 
 		public void StopAllChannels() {
