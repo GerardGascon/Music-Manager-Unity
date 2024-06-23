@@ -44,5 +44,19 @@ namespace Sound.Tests {
 
 			Assert.AreEqual(1, mock2.FadeDurationReceived);
 		}
+
+		[Test]
+		public void StopChannel_DontFadeNonLastSong() {
+			AudioTrackMock mock1 = new("potato");
+			AudioTrackMock mock2 = new("tomato");
+			MusicChannel sut = new(mock1);
+			MusicManager manager = new();
+
+			manager.AddChannel(sut);
+			sut.PlayNew(mock2);
+			manager.StopChannel(sut, 1);
+
+			Assert.AreEqual(0, mock1.FadeDurationReceived);
+		}
 	}
 }

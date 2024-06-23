@@ -11,8 +11,10 @@ namespace Sound.Domain.Channels {
 
 		public void Play(float fadeDuration = 0f, float fadeDelay = 0f) => AudioTrack.Play(fadeDuration, fadeDelay);
 		public void Stop(float fadeDuration = 0f, float fadeDelay = 0f) {
+			if (ActiveTracks.TryPop(out IAudioTrack lastTrack))
+				lastTrack.Stop(fadeDuration, fadeDelay);
 			while (ActiveTracks.TryPop(out IAudioTrack track)) {
-				track.Stop(fadeDuration, fadeDelay);
+				track.Stop(0, 0);
 			}
 		}
 
