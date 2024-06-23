@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Sound.Domain.Channels;
+using Sound.Tests.Mocks;
 
 namespace Sound.Tests {
 	public class MusicChannelTests {

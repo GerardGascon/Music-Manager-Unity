@@ -1,7 +1,7 @@
 using System;
 using NUnit.Framework;
-using Sound.Domain;
 using Sound.Domain.Manager;
+using Sound.Tests.Mocks;
 
 namespace Sound.Tests {
 	public class MusicDomainTests {

@@ -1,6 +1,6 @@
 using Sound.Domain.Channels;
 
-namespace Sound.Tests {
+namespace Sound.Tests.Mocks {
 	public class AudioTrackMock : IAudioTrack {
 		private readonly string _name;
 

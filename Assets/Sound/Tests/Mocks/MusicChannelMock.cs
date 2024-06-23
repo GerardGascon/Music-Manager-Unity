@@ -1,7 +1,6 @@
-using Sound.Domain;
 using Sound.Domain.Channels;
 
-namespace Sound.Tests {
+namespace Sound.Tests.Mocks {
 	public class MusicChannelMock : IMusicChannel {
 		private readonly string _name;
 
