@@ -119,5 +119,18 @@ namespace Sound.Tests {
 
 			Assert.AreNotEqual(mock2, sut.CurrentlyPlayingChannel);
 		}
+
+		[Test]
+		public void StopSpecificLast_UnpausesPreviousChannel() {
+			MusicChannelMock mock1 = new("potato");
+			MusicChannelMock mock2 = new("tomato");
+			MusicManager sut = new();
+
+			sut.AddChannel(mock1);
+			sut.AddChannel(mock2);
+			sut.StopChannel(mock2);
+
+			Assert.IsTrue(mock1.UnpauseCallbackReceived);
+		}
 	}
 }

@@ -19,15 +19,14 @@ namespace Sound.Domain.Manager {
 		}
 
 		public void RemoveLast() {
-			IMusicChannel channel = CurrentlyPlayingChannel;
-			ActiveChannels.RemoveAt(ActiveChannels.Count - 1);
-			channel.Stop();
-
-			CurrentlyPlayingChannel?.Unpause();
+			StopChannel(ActiveChannels[^1]);
 		}
 
 		public void StopChannel(IMusicChannel musicChannel) {
 			ActiveChannels.Remove(musicChannel);
+			musicChannel.Stop();
+
+			CurrentlyPlayingChannel?.Unpause();
 		}
 
 		public void StopAllChannels() {
