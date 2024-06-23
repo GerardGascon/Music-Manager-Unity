@@ -30,7 +30,12 @@ namespace Sound.Domain.Manager {
 
 		public void StopAllChannels(float fadeDuration = 0f, float delay = 0f) {
 			while (ActiveChannels.Count > 0) {
-				ActiveChannels[0].Stop(fadeDuration, delay);
+				bool isLast = ActiveChannels.Count == 1;
+				if(isLast)
+					ActiveChannels[0].Stop(fadeDuration, delay);
+				else
+					ActiveChannels[0].Stop(0, 0);
+
 				ActiveChannels.RemoveAt(0);
 			}
 		}
