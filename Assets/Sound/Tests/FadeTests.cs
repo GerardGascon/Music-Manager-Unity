@@ -58,5 +58,27 @@ namespace Sound.Tests {
 
 			Assert.AreEqual(0, mock1.FadeDurationReceived);
 		}
+
+		[Test]
+		public void PauseChannel_FadesLastSong() {
+			AudioTrackMock mock1 = new("potato");
+			MusicChannel sut = new(mock1);
+
+			sut.Pause(1);
+
+			Assert.AreEqual(1, mock1.FadeDurationReceived);
+		}
+
+		[Test]
+		public void PauseChannel_DontFadeNonLastSong() {
+			AudioTrackMock mock1 = new("potato");
+			AudioTrackMock mock2 = new("tomato");
+			MusicChannel sut = new(mock1);
+
+			sut.PlayNew(mock2);
+			sut.Pause(1);
+
+			Assert.AreEqual(0, mock1.FadeDurationReceived);
+		}
 	}
 }
